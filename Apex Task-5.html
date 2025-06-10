@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mini Online Shop</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}body{font-family:sans-serif;background:#f9f9f9;color:#333}header{background:#222;color:#fff;padding:1rem;text-align:center;font-size:1.5rem}#shop{max-width:1000px;margin:2rem auto;padding:1rem}#products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}.product{background:#fff;padding:1rem;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,0.1);display:flex;flex-direction:column;align-items:center}img{width:100%;height:160px;object-fit:cover;border-radius:6px;margin-bottom:0.5rem}h3{margin:0.5rem 0}button{background:#28a745;color:white;padding:0.5rem 1rem;border:none;border-radius:5px;cursor:pointer}button:hover{background:#218838}#cart{margin-top:2rem}#cart ul{list-style:none;padding:0}#cart li{padding:0.5rem 0;border-bottom:1px solid #ddd}footer{text-align:center;padding:1rem 0;background:#222;color:white;margin-top:3rem}
+  </style>
+</head>
+<body>
+  <header>🛍️ Mini Online Shop</header>
+  <div id="shop">
+    <div id="products"></div>
+    <div id="cart">
+      <h2>🛒 Cart</h2>
+      <ul id="cartItems"></ul>
+      <p><strong>Total: ₹<span id="total">0</span></strong></p>
+    </div>
+  </div>
+  <footer>&copy; 2025 Mini Shop | Fast • Responsive • Reliable</footer>
+
+  <script>
+    const products = [
+      { name: 'Wireless Headphones', price: 1499, img: 'https://m.media-amazon.com/images/I/61p-1VVJaeL._AC_SL1500_.jpg' },
+      { name: 'Smart Watch', price: 2499, img: 'https://m.media-amazon.com/images/I/71JNdX3xEdL._AC_SL1500_.jpg' },
+      { name: 'Bluetooth Speaker', price: 999, img: 'https://m.media-amazon.com/images/I/71EoOj6LyhL._AC_SL1500_.jpg' },
+      { name: 'Portable Charger', price: 699, img: 'https://m.media-amazon.com/images/I/61YhUqojM3L._AC_SL1500_.jpg' },
+      { name: 'DSLR Camera', price: 28999, img: 'https://m.media-amazon.com/images/I/71eB+7T17xL._AC_SL1500_.jpg' },
+      { name: 'Gaming Mouse', price: 1299, img: 'https://m.media-amazon.com/images/I/71kWym-V7jL._AC_SL1500_.jpg' },
+      { name: 'Laptop Stand', price: 899, img: 'https://m.media-amazon.com/images/I/71V+xONQ3BL._AC_SL1500_.jpg' },
+      { name: 'Noise Cancelling Earbuds', price: 1999, img: 'https://m.media-amazon.com/images/I/61k5+RcJ8-L._AC_SL1500_.jpg' }
+    ];
+
+    const cart = [];
+    const productsDiv = document.getElementById('products');
+    const cartItems = document.getElementById('cartItems');
+    const totalEl = document.getElementById('total');
+
+    function addToCart(index) {
+      cart.push(products[index]);
+      renderCart();
+    }
+
+    function renderCart() {
+      cartItems.innerHTML = '';
+      let total = 0;
+      cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} - ₹${item.price}`;
+        cartItems.appendChild(li);
+        total += item.price;
+      });
+      totalEl.textContent = total;
+    }
+
+    function renderProducts() {
+      products.forEach((product, index) => {
+        const div = document.createElement('div');
+        div.className = 'product';
+        div.innerHTML = `
+          <img src="${product.img}" loading="lazy" alt="${product.name}">
+          <h3>${product.name}</h3>
+          <p>₹${product.price}</p>
+          <button onclick="addToCart(${index})">Add to Cart</button>
+        `;
+        productsDiv.appendChild(div);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', renderProducts);
+  </script>
+</body>
+</html>
+
+
+
+
+
+
